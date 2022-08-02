@@ -1,5 +1,11 @@
 <template>
   <ul>
+    <li>
+      <img
+        :src="`https://image.tmdb.org/t/p/w342${production.poster_path}`"
+        alt=""
+      />
+    </li>
     <li>{{ title }}</li>
     <li>{{ originalTitle }}</li>
     <li>
@@ -13,6 +19,12 @@
 <script>
 export default {
   name: "ProductionCard",
+  dat() {
+    return {
+      imgSize: "w342",
+      imgUri: "https://image.tmdb.org/t/p/",
+    };
+  },
   props: {
     production: Object,
   },
@@ -30,6 +42,9 @@ export default {
     flagSrc() {
       return require(`../assets/flags/${this.production.original_language}.png`);
     },
+  },
+  methods: {
+    getImgUrl() {},
   },
 };
 </script>
