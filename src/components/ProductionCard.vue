@@ -12,7 +12,17 @@
       <img v-if="hasFlag" :src="flagSrc" :alt="production.original_language" />
       <p v-else>{{ production.original_language }}</p>
     </li>
-    <li>{{ production.vote_average }}</li>
+
+    <li>
+      <i
+        v-for="index in 5"
+        class="fa-star"
+        :class="
+          index <= starVote(production.vote_average) ? 'fa-solid' : 'fa-regular'
+        "
+        :key="index"
+      ></i>
+    </li>
   </ul>
 </template>
 
@@ -44,7 +54,9 @@ export default {
     },
   },
   methods: {
-    getImgUrl() {},
+    starVote(vote) {
+      return Math.ceil(vote * 0.5);
+    },
   },
 };
 </script>
