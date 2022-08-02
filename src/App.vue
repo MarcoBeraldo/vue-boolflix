@@ -1,13 +1,22 @@
 <template>
   <div id="app">
-    <AppHeader @search="getMovies" />
+    <AppHeader @search="getProductions" />
     <section id="movies">
-      <ul v-for="movie in movies" :key="movie.id">
-        <li>{{ movie.title }}</li>
-        <li>{{ movie.original_title }}</li>
-        <li>{{ movie.original_language }}</li>
-        <li>{{ movie.vote_average }}</li>
-      </ul>
+      <h2>Movies</h2>
+      <ProductionCard
+        v-for="movie in movies"
+        :key="movie.id"
+        :production="movie"
+      />
+    </section>
+
+    <section id="series">
+      <h2>Series</h2>
+      <ProductionCard
+        v-for="serie in series"
+        :key="serie.id"
+        :production="serie"
+      />
     </section>
   </div>
 </template>
@@ -15,41 +24,47 @@
 <script>
 import axios from "axios";
 import AppHeader from "/src/components/AppHeader.vue";
+import ProductionCard from "/src/components/ProductionCard.vue";
 export default {
   name: "App",
   components: {
     AppHeader,
+    ProductionCard,
   },
   data() {
     return {
       movies: [],
       series: [],
+      api: {
+        language: "it-IT",
+        key: "aedbe765e1515ff23693adb543bba89d",
+        baseUri: "https://api.themoviedb.org/3",
+      },
     };
   },
   methods: {
-    getMovies(query) {
-      this.fetchMovie(query);
-      this.fetchSerie(query);
+    getProductions(query) {
+      if (!query) {
+        this.movies = this.query = [];
+        return;
+      }
+      const { language, key } = this.api;
+
+      const config = {
+        params: {
+          api_key: key,
+          language,
+          query,
+        },
+      };
+      this.fetchData("/search/movie", config, "movies");
+      this.fetchData("/search/tv", config, "series");
     },
 
-    fetchMovie(query) {
-      axios
-        .get(
-          `https://api.themoviedb.org/3/search/movie?api_key=aedbe765e1515ff23693adb543bba89d&query=${query}&language=it-IT`
-        )
-        .then((res) => {
-          this.movies = res.data.results;
-        });
-    },
-
-    fetchSerie(query) {
-      axios
-        .get(
-          `https://api.themoviedb.org/3/search/tv?api_key=aedbe765e1515ff23693adb543bba89d&query=${query}&language=it-IT`
-        )
-        .then((res) => {
-          this.series = res.data.results;
-        });
+    fetchData(endpoint, config, target) {
+      axios.get(`${this.api.baseUri}${endpoint}`, config).then((res) => {
+        this[target] = res.data.results;
+      });
     },
   },
 };
