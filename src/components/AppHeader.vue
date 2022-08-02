@@ -1,6 +1,6 @@
 <template>
   <header>
-    <input v-model="query" />
+    <input type="text" v-model.trim="query" />
 
     <button @click="emitClick">Cerca</button>
   </header>
@@ -9,11 +9,16 @@
 <script>
 export default {
   name: "AppHeader",
+  data() {
+    return {
+      query: "",
+    };
+  },
 
   components: {},
   methods: {
     emitClick() {
-      this.$emit("clicked-search");
+      this.$emit("search", this.query);
     },
   },
 };
