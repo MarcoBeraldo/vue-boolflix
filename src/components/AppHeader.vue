@@ -1,8 +1,11 @@
 <template>
   <header>
-    <input type="text" v-model.trim="query" />
+    <h1>BOOLFLIX</h1>
+    <div class="nav">
+      <input type="text" v-model.trim="query" @keyup.enter="emitClick" />
 
-    <button @click="emitClick">Cerca</button>
+      <button @click="emitClick">Cerca</button>
+    </div>
   </header>
 </template>
 
@@ -24,5 +27,16 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+header {
+  background-color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+
+  h1 {
+    color: red;
+  }
+}
 </style>

@@ -2,21 +2,25 @@
   <div id="app">
     <AppHeader @search="getProductions" />
     <section id="movies">
-      <h2>Movies</h2>
-      <ProductionCard
-        v-for="movie in movies"
-        :key="movie.id"
-        :production="movie"
-      />
+      <h2 v-show="movies.length !== 0">Movies</h2>
+      <div class="cards-container">
+        <ProductionCard
+          v-for="movie in movies"
+          :key="movie.id"
+          :production="movie"
+        />
+      </div>
     </section>
 
     <section id="series">
-      <h2>Series</h2>
-      <ProductionCard
-        v-for="serie in series"
-        :key="serie.id"
-        :production="serie"
-      />
+      <h2 v-show="series.length !== 0">Series</h2>
+      <div class="cards-container">
+        <ProductionCard
+          v-for="serie in series"
+          :key="serie.id"
+          :production="serie"
+        />
+      </div>
     </section>
   </div>
 </template>
@@ -46,6 +50,7 @@ export default {
     getProductions(query) {
       if (!query) {
         this.movies = this.query = [];
+        this.series = this.query = [];
         return;
       }
       const { language, key } = this.api;
@@ -71,4 +76,25 @@ export default {
 </script>
 
 <style lang="scss">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+body {
+  background-color: #434343;
+}
+
+.cards-container {
+  display: flex;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+h2 {
+  margin-top: 30px;
+  margin-left: 30px;
+  font-size: 2rem;
+}
 </style>
