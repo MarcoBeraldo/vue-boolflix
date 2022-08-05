@@ -6,6 +6,7 @@
           class="movie-poster"
           v-if="production.poster_path"
           :src="`https://image.tmdb.org/t/p/w342${production.poster_path}`"
+          :alt="title"
         />
         <img
           class="alt-img"

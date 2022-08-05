@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <AppHeader @search="getProductions" />
+
     <section id="movies">
       <h2 v-show="movies.length !== 0">Movies</h2>
       <div class="cards-container">
@@ -14,6 +15,7 @@
 
     <section id="series">
       <h2 v-show="series.length !== 0">Series</h2>
+
       <div class="cards-container">
         <ProductionCard
           v-for="serie in series"
@@ -96,5 +98,13 @@ h2 {
   margin-top: 30px;
   margin-left: 30px;
   font-size: 2rem;
+  color: white;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }
 </style>

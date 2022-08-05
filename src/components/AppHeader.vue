@@ -1,10 +1,12 @@
 <template>
   <header>
-    <h1>BOOLFLIX</h1>
-    <div class="nav">
-      <input type="text" v-model.trim="query" @keyup.enter="emitClick" />
+    <div class="container">
+      <h1>BOOLFLIX</h1>
+      <div class="nav">
+        <input type="text" v-model.trim="query" @keyup.enter="emitClick" />
 
-      <button @click="emitClick">Cerca</button>
+        <button @click="emitClick">Cerca</button>
+      </div>
     </div>
   </header>
 </template>
@@ -30,10 +32,13 @@ export default {
 <style lang="scss" scoped>
 header {
   background-color: black;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
+  padding: 20px 30px;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   h1 {
     color: red;
