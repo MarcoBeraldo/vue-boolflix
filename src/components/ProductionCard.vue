@@ -42,6 +42,7 @@
               :key="index"
             ></i>
           </li>
+          <li>Cast: {{ castList }}</li>
           <li class="overview">{{ production.overview }}</li>
         </ul>
       </div>
@@ -52,7 +53,7 @@
 <script>
 export default {
   name: "ProductionCard",
-  dat() {
+  data() {
     return {
       imgSize: "w342",
       imgUri: "https://image.tmdb.org/t/p/",
@@ -74,6 +75,12 @@ export default {
     },
     flagSrc() {
       return require(`../assets/flags/${this.production.original_language}.png`);
+    },
+    castList() {
+      if (this.production.cast) {
+        console.log(this.production.cast[0]);
+      }
+      return "pippo";
     },
   },
   methods: {

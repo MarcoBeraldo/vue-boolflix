@@ -69,9 +69,24 @@ export default {
     },
 
     fetchData(endpoint, config, target) {
-      axios.get(`${this.api.baseUri}${endpoint}`, config).then((res) => {
-        this[target] = res.data.results;
-      });
+      axios
+        .get(`${this.api.baseUri}${endpoint}`, config)
+        .then((res) => {
+          this[target] = res.data.results;
+        })
+        .then(() => {
+          this[target].forEach((production, i, array) => {
+            let productionType = production.name ? "tv" : "movie";
+            let endpoint = `${this.api.baseUri}/${productionType}/${production.id}/credits`;
+
+            axios.get(`${endpoint}?api_key=${this.api.key}`).then((res) => {
+              array[i]["cast"] = res.data.cast.slice(0, 5);
+            });
+          });
+        });
+    },
+    beforeCreate() {
+      this.fetchData();
     },
   },
 };
