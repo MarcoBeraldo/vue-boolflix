@@ -77,10 +77,14 @@ export default {
       return require(`../assets/flags/${this.production.original_language}.png`);
     },
     castList() {
-      if (this.production.cast) {
-        console.log(this.production.cast[0]);
+      let actors = "";
+      if (this.production.cast && this.production.cast.length) {
+        this.production.cast.forEach((actor) => {
+          actors += actor.original_name + ", ";
+        });
       }
-      return "pippo";
+      console.log(actors);
+      return actors.slice(0, -2);
     },
   },
   methods: {
