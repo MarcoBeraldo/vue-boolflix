@@ -140,7 +140,7 @@ ul {
 
 li.overview {
   overflow-y: auto;
-  max-height: 250px;
+  max-height: 130px;
   padding: 3px;
 }
 
